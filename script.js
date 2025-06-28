@@ -120,4 +120,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Handle image loading errors
+    const images = document.querySelectorAll('.gallery-item img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Failed to load image:', this.src);
+            // Try to encode the URL
+            const originalSrc = this.src;
+            const parts = originalSrc.split('/');
+            const fileName = parts[parts.length - 1];
+            const encodedFileName = encodeURIComponent(fileName);
+            const newSrc = originalSrc.replace(fileName, encodedFileName);
+            
+            if (newSrc !== originalSrc) {
+                console.log('Trying encoded URL:', newSrc);
+                this.src = newSrc;
+            } else {
+                // Hide the gallery item if image fails to load
+                this.parentElement.style.display = 'none';
+                console.log('Hiding failed image item');
+            }
+        });
+
+        img.addEventListener('load', function() {
+            console.log('Successfully loaded image:', this.src);
+        });
+    });
 });

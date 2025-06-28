@@ -254,6 +254,64 @@ section h3::after {
     font-weight: 600;
 }
 
+/* --- Year Selection Styles --- */
+.year-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.year-card {
+    background: #2a2a4e;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.year-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 32px rgba(199, 146, 234, 0.3);
+}
+
+.year-card-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.year-card h3 {
+    font-size: 2rem;
+    color: #c792ea;
+    margin-bottom: 0.5rem;
+}
+
+.year-card p {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.year-preview {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.year-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.year-card:hover .year-preview img {
+    opacity: 0.8;
+}
+
 /* --- Discord Button --- */
 .btn {
     display: inline-block;
@@ -298,7 +356,7 @@ section h3::after {
 
 .gallery-item img {
     width: 100%;
-    height: 250px;
+    height: 280px;
     object-fit: cover;
     display: block;
     cursor: pointer;
@@ -315,6 +373,23 @@ section h3::after {
     font-weight: 600;
     font-size: 1.1rem;
     color: #fff;
+    display: none; /* Hide titles */
+}
+
+/* Back link styles */
+.back-link {
+    margin-bottom: 2rem;
+}
+
+.back-link .btn {
+    background: #2a2a4e !important;
+    color: #c792ea !important;
+    border: 2px solid #c792ea !important;
+}
+
+.back-link .btn:hover {
+    background: #c792ea !important;
+    color: #fff !important;
 }
 
 /* --- Modal --- */
@@ -400,5 +475,28 @@ footer {
     }
     .hero h2 {
         font-size: 2.5rem;
+    }
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    .gallery-item img {
+        height: 220px;
+    }
+    .year-section h3 {
+        font-size: 1.8rem;
+    }
+    .featured-image-container {
+        max-width: 90%;
+    }
+    .year-selection {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .year-card h3 {
+        font-size: 1.8rem;
+    }
+    .year-preview {
+        height: 150px;
     }
 }
