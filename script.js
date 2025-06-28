@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (modal && modalImg && captionText) {
                 modal.style.display = "block";
                 modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
+                captionText.innerHTML = ""; // キャプションを空にする
             }
         }
     });

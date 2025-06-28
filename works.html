@@ -28,32 +28,30 @@
                 <div class="year-card" onclick="location.href='works-2025.html'">
                     <div class="year-card-content">
                         <h3>2025年制作</h3>
-                        <p>94作品</p>
+                                                <p id="count-2025-main">67作品</p>
                         <div class="year-preview">
-                            <img src="画像/(最新)ら太幼稚園&おずぐるみ 全員集合_20250628064732.jpg" alt="2025年代表作品">
+                            <img src="画像/latest_all_members_20250628064732.jpg" alt="2025年代表作品">
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="year-card" onclick="location.href='works-2024.html'">
                     <div class="year-card-content">
                         <h3>2024年制作</h3>
-                        <p>62作品</p>
+                        <p>59作品</p>
                         <div class="year-preview">
                             <img src="画像/ら太幼稚園 全員集合_20240404062135.png" alt="2024年代表作品">
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="year-card" onclick="location.href='works-2023.html'">
                     <div class="year-card-content">
                         <h3>2023年制作</h3>
-                        <p>103作品</p>
+                        <p>99作品</p>
                         <div class="year-preview">
-                            <img src="画像/HamCup#003_20230306132632.PNG" alt="2023年代表作品">
+                            <img src="画像/無題226.2023.08.29-21.07_20231122065338.png" alt="2023年代表作品">
                         </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -64,7 +62,46 @@
         </div>
     </footer>
 
+    <script>
+        // Handle image loading errors for year preview images and update counts
+        document.addEventListener('DOMContentLoaded', function() {
+            // 2025年の作品数を自動更新
+            fetch('files2025.json')
+                .then(r => r.json())
+                .then(files => {
+                    document.getElementById('count-2025-main').textContent = `${files.length}作品`;
+                })
+                .catch(err => console.log('files2025.json読み込み失敗'));
+            
+            const previewImages = document.querySelectorAll('.year-preview img');
+            previewImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.log('Failed to load preview image:', this.src);
+                    // Try with encoded URL
+                    const originalSrc = this.src;
+                    const parts = originalSrc.split('/');
+                    const fileName = parts[parts.length - 1];
+                    const encodedFileName = encodeURIComponent(fileName);
+                    const newSrc = originalSrc.replace(fileName, encodedFileName);
+                    
+                    if (newSrc !== originalSrc) {
+                        console.log('Trying encoded URL for preview:', newSrc);
+                        this.src = newSrc;
+                    } else {
+                        // Set a fallback image or hide
+                        console.log('Preview image failed to load');
+                        this.style.display = 'none';
+                    }
+                });
+
+                img.addEventListener('load', function() {
+                    console.log('Successfully loaded preview image:', this.src);
+                });
+            });
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-    <script src="script.js"></script>
+     <script src="script.js"></script>
 </body>
 </html>
