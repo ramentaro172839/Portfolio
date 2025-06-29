@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品一覧 - らーめん太郎 Fan Art Gallery</title>
+    <title>作品一覧 - らーめん太郎 ファンアート ギャラリー</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="particles-js"></div>
     <header>
         <div class="container">
-            <h1 class="site-title">らーめん太郎 Fan Art Gallery</h1>
+            <h1 class="site-title">らーめん太郎 ファンアート ギャラリー</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">トップ</a></li>
@@ -38,7 +38,7 @@
                 <div class="year-card" onclick="location.href='works-2024.html'">
                     <div class="year-card-content">
                         <h3>2024年制作</h3>
-                        <p>59作品</p>
+                        <p id="count-2024-main">59作品</p>
                         <div class="year-preview">
                             <img src="画像/ら太幼稚園 全員集合_20240404062135.png" alt="2024年代表作品">
                         </div>
@@ -48,7 +48,7 @@
                 <div class="year-card" onclick="location.href='works-2023.html'">
                     <div class="year-card-content">
                         <h3>2023年制作</h3>
-                        <p>99作品</p>
+                        <p id="count-2023-main">147作品</p>
                         <div class="year-preview">
                             <img src="画像/無題226.2023.08.29-21.07_20231122065338.png" alt="2023年代表作品">
                         </div>
@@ -72,6 +72,32 @@
                     document.getElementById('count-2025-main').textContent = `${files.length}作品`;
                 })
                 .catch(err => console.log('files2025.json読み込み失敗'));
+                
+            // 2024年の作品数を自動更新
+            fetch('works-2024.html')
+                .then(r => r.text())
+                .then(html => {
+                    const match = html.match(/const files2024 = \[([\s\S]*?)\];/);
+                    if (match) {
+                        const fileList = match[1];
+                        const fileCount = (fileList.match(/"/g) || []).length / 2;
+                        document.getElementById('count-2024-main').textContent = `${fileCount}作品`;
+                    }
+                })
+                .catch(err => console.log('2024年作品数取得失敗'));
+                
+            // 2023年の作品数を自動更新
+            fetch('works-2023.html')
+                .then(r => r.text())
+                .then(html => {
+                    const match = html.match(/const files2023 = \[([\s\S]*?)\];/);
+                    if (match) {
+                        const fileList = match[1];
+                        const fileCount = (fileList.match(/"/g) || []).length / 2;
+                        document.getElementById('count-2023-main').textContent = `${fileCount}作品`;
+                    }
+                })
+                .catch(err => console.log('2023年作品数取得失敗'));
             
             const previewImages = document.querySelectorAll('.year-preview img');
             previewImages.forEach(img => {
